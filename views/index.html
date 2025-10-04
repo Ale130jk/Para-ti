@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para ti</title>
+    <link rel="stylesheet" href="/styles/index.css">
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    <div class="container">
+        <h1 class="main-title">Un Día Especial</h1>
+        <p class="subtitle">Dedicado para ti 🎂</p>
+        <div class="btn-container">
+            <a href="celebration.html" class="btn-para-ti">Para Ti</a>
+        </div>
+    </div>
+    <script>
+        const heartsContainer = document.getElementById('hearts');
+        
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '💝';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            heartsContainer.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 10000);
+        }
+        setInterval(createHeart, 600);
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Cumpleaños Mi Amor</title>
+    <link rel="stylesheet" href="/styles/celebration.css">
+</head>
+<body>
+    <div class="sparkles" id="sparkles"></div>
+    <div class="falling-letters" id="fallingLetters"></div>
+
+    <div class="main-container">
+        <div class="heart-icon">❤️</div>
+        <div class="cake-icon">🎂</div>
+        
+        <div class="message-section">
+            <p class="message-text">Feliz Cumpleaños</p>
+            <p class="message-text" style="font-size: clamp(1.2rem, 3vw, 2rem);">Mi Amor</p>
+        </div>
+    </div>
+
+    <div class="gallery-section">
+        <div class="gallery-item">
+            <img src="/img/aa.jfif" alt="Momento especial">
+            <p class="gallery-caption">
+                Feliz Cumpleaños kiara , hoy en un dia tan especial naciste tu , solo recordandote
+                lo importante y valiosa no solo por mi , sino por todos tus seres queridos
+                aunque la distancia sea un impedimento y pese a tods los problemas , siempre te agradacere y aun agradezco
+                cada momento a tu lado malos y sobre todo buenos , aún aunque resulte dificil de creer , ni un dia deje de pensar en ti , 
+                siento que cualquier cosa que haga siempre hay algo que haga que te piense , y siga pensando que eres tu
+                cuidate muy bien , yo te espero , aunque sienta un vacio todos los dias , aunque verte nos haga recordar buenas y malas cosas 
+                del tiempo que estabamos juntos aun asi perdon si te lo digo , te amo mucho , y que bonito se sentia decirtelo en persona , y ver
+                tu sonrisa hermosa , te menti al decirte que no te necesitaba , te necesito , eres la luz que brilla mis dias aun asi ya estuviese bien o mal
+                siempre lo hacias , eres mi razon de ser , te amo infinitamente , no hay dia que no quiera pasar contigo , por ello no creo pedir mucho pero 
+                mejoremos , sana , y ven a mi no me importa si hacemos un escandalo , no me importa si nos mira todo el mundo , no me importa nadie más que tu kiara
+                pasala muy bien , cuidate bastante , ya nos veremos hasta entonces , diviertete en tu dia linda y aprecia todo lo que tienes y construiste con tu esfuerzo
+                eres increible y lo mereces todo , feliz cumpleaños❤️
+            </p>
+        </div>
+
+        <a href="final.html" class="btn-kiara">Kiara</a>
+    </div>
+
+    <script>
+        const letters = ['F', 'E', 'L', 'I', 'Z', '❤️', 'C', 'U', 'M', 'P', 'L', 'E', 'A', 'Ñ', 'O', 'S', '💕', '🎉'];
+        const colors = ['#ff6b9d', '#ffa8d5', '#ff8ab5', '#d65a8e', '#ffb3d9'];
+        const fallingContainer = document.getElementById('fallingLetters');
+
+        function createFallingLetter() {
+            const letter = document.createElement('div');
+            letter.classList.add('letter');
+            letter.textContent = letters[Math.floor(Math.random() * letters.length)];
+            letter.style.left = Math.random() * 100 + '%';
+            letter.style.color = colors[Math.floor(Math.random() * colors.length)];
+            letter.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            letter.style.animationDelay = Math.random() * 2 + 's';
+            fallingContainer.appendChild(letter);
+
+            setTimeout(() => {
+                letter.remove();
+            }, 8000);
+        }
+
+        setInterval(createFallingLetter, 300);
+
+        const sparklesContainer = document.getElementById('sparkles');
+        
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            sparkle.style.animationDelay = Math.random() * 2 + 's';
+            sparklesContainer.appendChild(sparkle);
+
+            setTimeout(() => {
+                sparkle.remove();
+            }, 2000);
+        }
+
+        setInterval(createSparkle, 200);
+
+        // Animación de aparición al cargar la página
+        window.addEventListener('load', () => {
+            const galleryItem = document.querySelector('.gallery-item');
+            setTimeout(() => {
+                galleryItem.classList.add('visible');
+            }, 500);
+        });
+    </script>
+</body>
+</html>

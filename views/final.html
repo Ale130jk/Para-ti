@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04/10/2005</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+       <div class="floating-hearts" id="floatingHearts"></div>
+
+    <div class="message-container">
+        <h1 class="main-message">Todo lo que significas<br>es demasiado...</h1>
+    </div>
+
+    <div class="flower-container">
+        <div class="sparkle-burst" id="sparkleBurst"></div>
+        <div class="flower">🌹</div>
+    </div>
+
+    <div class="corner-stars star-tl">⭐</div>
+    <div class="corner-stars star-tr">✨</div>
+    <div class="corner-stars star-bl">💫</div>
+    <div class="corner-stars star-br">⭐</div>
+
+    <script>
+        function createBurstSparkles() {
+            const burstContainer = document.getElementById('sparkleBurst');
+            const sparkleCount = 30;
+
+            for (let i = 0; i < sparkleCount; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('burst-sparkle');
+                
+                const angle = (360 / sparkleCount) * i;
+                const distance = 150;
+                const tx = Math.cos(angle * Math.PI / 180) * distance;
+                const ty = Math.sin(angle * Math.PI / 180) * distance;
+                
+                sparkle.style.setProperty('--tx', tx + 'px');
+                sparkle.style.setProperty('--ty', ty + 'px');
+                sparkle.style.animationDelay = (6 + Math.random() * 0.5) + 's';
+                
+                burstContainer.appendChild(sparkle);
+            }
+        }
+
+        function createFloatingHearts() {
+            const heartsContainer = document.getElementById('floatingHearts');
+            const hearts = ['❤️', '💖', '💕', '💗', '💓'];
+            
+            function addHeart() {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                heartsContainer.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 8000);
+            }
+
+            setInterval(addHeart, 500);
+        }
+
+        createBurstSparkles();
+        createFloatingHearts();
+
+        setTimeout(() => {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.style.position = 'fixed';
+                    sparkle.style.width = '4px';
+                    sparkle.style.height = '4px';
+                    sparkle.style.background = '#fff';
+                    sparkle.style.borderRadius = '50%';
+                    sparkle.style.boxShadow = '0 0 20px #fff, 0 0 40px #ffa8d5';
+                    sparkle.style.left = (45 + Math.random() * 10) + '%';
+                    sparkle.style.top = (45 + Math.random() * 10) + '%';
+                    sparkle.style.animation = 'twinkle 1s ease-in-out infinite';
+                    sparkle.style.zIndex = '20';
+                    document.body.appendChild(sparkle);
+                }, i * 100);
+            }
+        }, 6000);
+        </script>
+</body>
+</html>
