@@ -7,14 +7,13 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-       <div class="floating-hearts" id="floatingHearts"></div>
+    <div class="floating-hearts" id="floatingHearts"></div>
 
     <div class="message-container">
-        <h1 class="main-message">Todo lo que significas tu sabes que lo es todo para mi ,<br> y anhelo que veas y aprecias tanto como yo lo hermosa e increible que eres...</h1>
+        <h1 class="main-message">Todo lo que significas, lo es todo para mi,<br> y anhelo que veas lo hermosa que eres...</h1>
     </div>
 
     <div class="flower-container">
-        <div class="sparkle-burst" id="sparkleBurst"></div>
         <div class="flower">🌹</div>
     </div>
 
@@ -24,37 +23,26 @@
     <div class="corner-stars star-br">⭐</div>
 
     <script>
-        function createBurstSparkles() {
-            const burstContainer = document.getElementById('sparkleBurst');
-            const sparkleCount = 30;
-
-            for (let i = 0; i < sparkleCount; i++) {
-                const sparkle = document.createElement('div');
-                sparkle.classList.add('burst-sparkle');
-                
-                const angle = (360 / sparkleCount) * i;
-                const distance = 150;
-                const tx = Math.cos(angle * Math.PI / 180) * distance;
-                const ty = Math.sin(angle * Math.PI / 180) * distance;
-                
-                sparkle.style.setProperty('--tx', tx + 'px');
-                sparkle.style.setProperty('--ty', ty + 'px');
-                sparkle.style.animationDelay = (6 + Math.random() * 0.5) + 's';
-                
-                burstContainer.appendChild(sparkle);
-            }
-        }
-
         function createFloatingHearts() {
             const heartsContainer = document.getElementById('floatingHearts');
-            const hearts = ['❤️', '💖', '💕', '💗', '💓'];
+            const hearts = ['❤️', '💖', '💕', '💗', '💓', '💝'];
             
             function addHeart() {
                 const heart = document.createElement('div');
                 heart.classList.add('floating-heart');
                 heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                
+                // Distribuir corazones más en los costados (0-30% y 70-100%)
+                const side = Math.random() > 0.5;
+                if (side) {
+                    // Lado izquierdo
+                    heart.style.left = Math.random() * 30 + '%';
+                } else {
+                    // Lado derecho
+                    heart.style.left = (70 + Math.random() * 30) + '%';
+                }
+                
+                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
                 heart.style.animationDelay = Math.random() * 2 + 's';
                 heartsContainer.appendChild(heart);
 
@@ -63,30 +51,48 @@
                 }, 8000);
             }
 
-            setInterval(addHeart, 500);
+            // Crear corazones iniciales
+            for (let i = 0; i < 15; i++) {
+                setTimeout(addHeart, i * 200);
+            }
+
+            // Continuar creando corazones
+            setInterval(addHeart, 400);
         }
 
-        createBurstSparkles();
+        // Iniciar animación de corazones
         createFloatingHearts();
 
+        // Agregar brillos sutiles alrededor de la flor cuando aparece
         setTimeout(() => {
-            for (let i = 0; i < 20; i++) {
+            const flowerContainer = document.querySelector('.flower-container');
+            
+            for (let i = 0; i < 12; i++) {
                 setTimeout(() => {
                     const sparkle = document.createElement('div');
-                    sparkle.style.position = 'fixed';
-                    sparkle.style.width = '4px';
-                    sparkle.style.height = '4px';
-                    sparkle.style.background = '#fff';
+                    sparkle.style.position = 'absolute';
+                    sparkle.style.width = '6px';
+                    sparkle.style.height = '6px';
+                    sparkle.style.background = '#ffa8d5';
                     sparkle.style.borderRadius = '50%';
-                    sparkle.style.boxShadow = '0 0 20px #fff, 0 0 40px #ffa8d5';
-                    sparkle.style.left = (45 + Math.random() * 10) + '%';
-                    sparkle.style.top = (45 + Math.random() * 10) + '%';
-                    sparkle.style.animation = 'twinkle 1s ease-in-out infinite';
-                    sparkle.style.zIndex = '20';
-                    document.body.appendChild(sparkle);
-                }, i * 100);
+                    sparkle.style.boxShadow = '0 0 20px #ffa8d5, 0 0 40px #fff';
+                    
+                    // Distribuir alrededor de la flor en círculo
+                    const angle = (360 / 12) * i;
+                    const distance = 120;
+                    const x = Math.cos(angle * Math.PI / 180) * distance;
+                    const y = Math.sin(angle * Math.PI / 180) * distance;
+                    
+                    sparkle.style.left = `calc(50% + ${x}px)`;
+                    sparkle.style.top = `calc(50% + ${y}px)`;
+                    sparkle.style.transform = 'translate(-50%, -50%)';
+                    sparkle.style.animation = 'twinkle 1.5s ease-in-out infinite';
+                    sparkle.style.animationDelay = (Math.random() * 0.5) + 's';
+                    
+                    flowerContainer.appendChild(sparkle);
+                }, i * 80);
             }
-        }, 6000);
-        </script>
+        }, 6200);
+    </script>
 </body>
 </html>
